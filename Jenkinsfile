@@ -21,7 +21,7 @@ pipeline {
         IMAGE_NAME  = 'devops-azure-pipeline'
         K8S_CONTEXT = 'minikube'
         K8S_NS      = 'devops-cia2'
-        APP_NAME    = 'devops-app'
+        DEPLOYMENT  = 'devops-app'
     }
 
     stages {
@@ -95,9 +95,9 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 bat '''
-                    kubectl --context %K8S_CONTEXT% -n %K8S_NS% rollout status deployment/%APP_NAME% --timeout=120s
+                    kubectl --context %K8S_CONTEXT% -n %K8S_NS% rollout status deployment/%DEPLOYMENT% --timeout=120s
                     kubectl --context %K8S_CONTEXT% -n %K8S_NS% get deployment,pods,service -o wide
-                    kubectl --context %K8S_CONTEXT% -n %K8S_NS% get deployment %APP_NAME% -o jsonpath="{.spec.template.spec.containers[0].image}"
+                    kubectl --context %K8S_CONTEXT% -n %K8S_NS% get deployment %DEPLOYMENT% -o jsonpath="{.spec.template.spec.containers[0].image}"
                 '''
             }
         }
