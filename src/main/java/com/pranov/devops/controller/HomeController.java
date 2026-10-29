@@ -31,7 +31,7 @@ public class HomeController {
                   <style>
                     body { font-family: Arial, sans-serif; background: #f2f5f9; margin: 0; padding: 40px 16px; color: #1d2733; }
                     .card { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 32px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
-                    h1 { margin-top: 0; color: #e07b00; }
+                    h1 { margin-top: 0; color: #0b63c5; }
                     .msg { font-size: 1.2em; margin-bottom: 24px; }
                     table { width: 100%%; border-collapse: collapse; }
                     td { padding: 8px 0; border-bottom: 1px solid #e6eaf0; }

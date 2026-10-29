@@ -13,7 +13,7 @@
 
     <groupId>com.pranov</groupId>
     <artifactId>devops-azure-pipeline</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>devops-azure-pipeline</name>
     <description>Java web application deployed through a Jenkins CI/CD pipeline</description>
 
