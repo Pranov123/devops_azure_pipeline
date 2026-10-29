@@ -16,12 +16,19 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
     }
 
+    parameters {
+        // The first choice is the default, which is also what SCM-triggered builds use
+        choice(name: 'DEPLOY_TARGET', choices: ['aks', 'minikube'],
+               description: 'aks = Azure Kubernetes Service (public IP), minikube = local cluster')
+    }
+
     environment {
-        REGISTRY    = 'pranovdevopsacr.azurecr.io'
-        IMAGE_NAME  = 'devops-azure-pipeline'
-        K8S_CONTEXT = 'minikube'
-        K8S_NS      = 'devops-cia2'
-        DEPLOYMENT  = 'devops-app'
+        REGISTRY     = 'pranovdevopsacr.azurecr.io'
+        IMAGE_NAME   = 'devops-azure-pipeline'
+        K8S_CONTEXT  = "${params.DEPLOY_TARGET == 'minikube' ? 'minikube' : 'aks-devops-cia2'}"
+        SERVICE_TYPE = "${params.DEPLOY_TARGET == 'minikube' ? 'NodePort' : 'LoadBalancer'}"
+        K8S_NS       = 'devops-cia2'
+        DEPLOYMENT   = 'devops-app'
     }
 
     stages {
@@ -86,7 +93,7 @@ pipeline {
                         kubectl config view --flatten --minify --context %K8S_CONTEXT% > "%WORKSPACE%\\.kubeconfig"
                         set K8S_AUTH_KUBECONFIG=%WORKSPACE%\\.kubeconfig
                         set WSLENV=ACR_USER:ACR_PASS:K8S_AUTH_KUBECONFIG/p
-                        wsl -d Ubuntu --cd "%WORKSPACE%\\ansible" -- ansible-playbook -i inventory.ini deploy.yml -e image_tag=%IMAGE_TAG% -e build_number=%BUILD_NUMBER%
+                        wsl -d Ubuntu --cd "%WORKSPACE%\\ansible" -- ansible-playbook -i inventory.ini deploy.yml -e image_tag=%IMAGE_TAG% -e build_number=%BUILD_NUMBER% -e service_type=%SERVICE_TYPE%
                     '''
                 }
             }
@@ -108,7 +115,7 @@ pipeline {
             bat 'if exist "%WORKSPACE%\\.kubeconfig" del /q "%WORKSPACE%\\.kubeconfig"'
         }
         success {
-            echo "Deployed ${env.IMAGE} to ${env.K8S_CONTEXT} (namespace ${env.K8S_NS})"
+            echo "Deployed ${env.IMAGE} to ${env.K8S_CONTEXT} (namespace ${env.K8S_NS}, service ${env.SERVICE_TYPE})"
         }
         failure {
             echo 'Pipeline failed - check the stage logs above'

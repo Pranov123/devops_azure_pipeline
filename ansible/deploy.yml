@@ -127,3 +127,20 @@
           - (smoke.log | from_json).build == build_number | string
         success_msg: "Endpoint is serving build {{ build_number }}: {{ smoke.log | trim }}"
         fail_msg: "Endpoint did not return build {{ build_number }}: {{ smoke.log | trim }}"
+
+    # On AKS the LoadBalancer service gets a public IP from Azure
+    - name: Wait for the public IP of the service
+      kubernetes.core.k8s_info:
+        kind: Service
+        name: "{{ app_name }}"
+        namespace: "{{ k8s_namespace }}"
+      register: svc
+      until: svc.resources[0].status.loadBalancer.ingress | default([]) | length > 0
+      retries: 30
+      delay: 10
+      when: service_type == 'LoadBalancer'
+
+    - name: Show the application URL
+      ansible.builtin.debug:
+        msg: "Application URL: http://{{ svc.resources[0].status.loadBalancer.ingress[0].ip }}/"
+      when: service_type == 'LoadBalancer'
