@@ -1,0 +1,16 @@
+# NodePort on Minikube, LoadBalancer (public IP) on AKS - chosen through the service_type variable
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ app_name }}"
+  namespace: "{{ namespace }}"
+  labels:
+    app: "{{ app_name }}"
+spec:
+  type: "{{ service_type }}"
+  selector:
+    app: "{{ app_name }}"
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

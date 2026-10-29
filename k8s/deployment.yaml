@@ -1,0 +1,64 @@
+# Rendered by Ansible (Jinja2): the {{ ... }} values are filled in at deploy time
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ app_name }}"
+  namespace: "{{ namespace }}"
+  labels:
+    app: "{{ app_name }}"
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: "{{ app_name }}"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0   # keep the app available during an update
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: "{{ app_name }}"
+        build: "{{ build_number }}"
+    spec:
+      imagePullSecrets:
+        - name: acr-pull-secret
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: "{{ app_name }}"
+          image: "{{ image }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: APP_VERSION
+              value: "{{ app_version }}"
+            - name: APP_BUILD
+              value: "{{ build_number }}"
+            - name: APP_MESSAGE
+              value: "{{ app_message }}"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
