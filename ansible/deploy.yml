@@ -111,9 +111,19 @@
               spec:
                 restartPolicy: Never
                 containers:
+                  # Old pods can answer for a few seconds after the rollout while they shut down,
+                  # so keep calling until the new build responds (up to ~60 s)
                   - name: curl
                     image: curlimages/curl:8.10.1
-                    args: ["-sSf", "--retry", "5", "--retry-connrefused", "http://{{ app_name }}.{{ k8s_namespace }}.svc/api/info"]
+                    command: ["sh", "-c"]
+                    args:
+                      - |
+                        for i in $(seq 1 30); do
+                          r=$(curl -sf http://{{ app_name }}.{{ k8s_namespace }}.svc/api/info)
+                          if echo "$r" | grep -q '"build":"{{ build_number }}"'; then echo "$r"; exit 0; fi
+                          sleep 2
+                        done
+                        echo "$r"; exit 1
 
     - name: Read smoke test response
       kubernetes.core.k8s_log:
