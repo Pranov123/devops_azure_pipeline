@@ -12,9 +12,9 @@
     </parent>
 
     <groupId>com.pranov</groupId>
-    <artifactId>devops-aws-pipeline</artifactId>
+    <artifactId>devops-azure-pipeline</artifactId>
     <version>1.0.0</version>
-    <name>devops-aws-pipeline</name>
+    <name>devops-azure-pipeline</name>
     <description>Java web application deployed through a Jenkins CI/CD pipeline</description>
 
     <properties>

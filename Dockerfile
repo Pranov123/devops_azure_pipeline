@@ -2,8 +2,8 @@
 # so the image only needs a Java runtime and the packaged application.
 FROM eclipse-temurin:21-jre-alpine
 
-LABEL org.opencontainers.image.title="devops-aws-pipeline" \
-      org.opencontainers.image.source="https://github.com/Pranov123/devops_aws_pipeline"
+LABEL org.opencontainers.image.title="devops-azure-pipeline" \
+      org.opencontainers.image.source="https://github.com/Pranov123/devops_azure_pipeline"
 
 # Run as a non-root user
 RUN addgroup -S app && adduser -S app -G app

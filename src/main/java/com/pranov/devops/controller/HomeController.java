@@ -48,7 +48,7 @@ public class HomeController {
                       <tr><td>Jenkins build</td><td>%s</td></tr>
                       <tr><td>Served by pod</td><td>%s</td></tr>
                     </table>
-                    <footer>Git &rarr; Jenkins &rarr; Maven &rarr; Docker &rarr; Amazon ECR &rarr; Ansible &rarr; Kubernetes</footer>
+                    <footer>Git &rarr; Jenkins &rarr; Maven &rarr; Docker &rarr; Azure Container Registry &rarr; Ansible &rarr; Kubernetes</footer>
                   </div>
                 </body>
                 </html>

@@ -23,7 +23,7 @@ class HomeControllerTest {
     void homePageShowsAppDetails() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("DevOps AWS Pipeline")))
+                .andExpect(content().string(containsString("DevOps Azure Pipeline")))
                 .andExpect(content().string(containsString("Test message")))
                 .andExpect(content().string(containsString("9.9.9")));
     }
