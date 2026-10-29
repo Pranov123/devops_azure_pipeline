@@ -53,9 +53,12 @@
           auths: "{{ {registry: {'username': acr_user, 'password': acr_pass, 'auth': (acr_user ~ ':' ~ acr_pass) | b64encode}} }}"
       no_log: true
 
+    # force replaces the object instead of merging into it, so settings removed from
+    # the template (e.g. old env variables) are also removed from the cluster
     - name: Apply deployment
       kubernetes.core.k8s:
         state: present
+        force: true
         template: "{{ manifest_dir }}/deployment.yaml"
 
     - name: Apply service
