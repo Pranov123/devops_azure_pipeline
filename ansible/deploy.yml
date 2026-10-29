@@ -15,8 +15,6 @@
     registry: pranovdevopsacr.azurecr.io
     image_repo: "{{ registry }}/devops-azure-pipeline"
     image: "{{ image_repo }}:{{ image_tag }}"
-    app_version: "1.0.0"
-    app_message: "Deployed automatically by Jenkins CI/CD"
     build_number: "manual"
     service_type: NodePort
     manifest_dir: "{{ playbook_dir }}/../k8s"
