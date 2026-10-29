@@ -1,0 +1,14 @@
+# Only target/app.jar is needed in the build context
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+src
+k8s
+ansible
+docs
+Jenkinsfile
+README.md
+target/*
+!target/app.jar
