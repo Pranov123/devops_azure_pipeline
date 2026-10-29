@@ -5,3 +5,6 @@ target/
 *.iml
 .vscode/
 .DS_Store
+
+# kubeconfig written by the Jenkins deploy stage
+.kubeconfig
