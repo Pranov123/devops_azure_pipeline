@@ -81,12 +81,24 @@
       retries: 40
       delay: 5
 
+    # Background propagation also deletes the Job's pods (the API default orphans them)
     - name: Remove previous smoke test job
       kubernetes.core.k8s:
         state: absent
         kind: Job
         name: smoke-test
         namespace: "{{ k8s_namespace }}"
+        delete_options:
+          propagationPolicy: Background
+        wait: true
+
+    - name: Remove leftover smoke test pods
+      kubernetes.core.k8s:
+        state: absent
+        kind: Pod
+        namespace: "{{ k8s_namespace }}"
+        label_selectors:
+          - job-name=smoke-test
         wait: true
 
     # Calls the service from inside the cluster, so the check works the same on Minikube and AKS
@@ -128,8 +140,8 @@
     - name: Read smoke test response
       kubernetes.core.k8s_log:
         namespace: "{{ k8s_namespace }}"
-        label_selectors:
-          - job-name=smoke-test
+        kind: Job
+        name: smoke-test
       register: smoke
 
     - name: Verify the new build is the one serving traffic
