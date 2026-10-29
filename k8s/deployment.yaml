@@ -1,9 +1,9 @@
-# Rendered by Ansible (Jinja2): the {{ ... }} values are filled in at deploy time
+# Rendered by Ansible (Jinja2 template): placeholder values are filled in at deploy time
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ app_name }}"
-  namespace: "{{ namespace }}"
+  namespace: "{{ k8s_namespace }}"
   labels:
     app: "{{ app_name }}"
 spec:
