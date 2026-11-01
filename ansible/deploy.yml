@@ -5,7 +5,7 @@
 # Registry login comes from the ACR_USER / ACR_PASS environment variables (Jenkins credential),
 # cluster access from K8S_AUTH_KUBECONFIG.
 
-- name: Deploy devops-azure-pipeline to Kubernetes
+- name: Deploy the Spice Route restaurant app to Kubernetes
   hosts: k8s_control
   gather_facts: false
 
@@ -52,6 +52,48 @@
         docker_config:
           auths: "{{ {registry: {'username': acr_user, 'password': acr_pass, 'auth': (acr_user ~ ':' ~ acr_pass) | b64encode}} }}"
       no_log: true
+
+    # The database password is generated once and kept in a Secret, so redeployments
+    # reuse it and the data on the volume stays accessible
+    - name: Check for existing database secret
+      kubernetes.core.k8s_info:
+        kind: Secret
+        name: restaurant-db
+        namespace: "{{ k8s_namespace }}"
+      register: db_secret
+      no_log: true
+
+    - name: Create database secret with a random password
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          type: Opaque
+          metadata:
+            name: restaurant-db
+            namespace: "{{ k8s_namespace }}"
+          stringData:
+            database: restaurant
+            username: restaurant
+            password: "{{ lookup('ansible.builtin.password', '/dev/null', chars=['ascii_letters', 'digits'], length=24) }}"
+      when: db_secret.resources | length == 0
+      no_log: true
+
+    - name: Apply PostgreSQL (volume, deployment, service)
+      kubernetes.core.k8s:
+        state: present
+        template: "{{ manifest_dir }}/postgres.yaml"
+
+    - name: Wait for PostgreSQL to be ready
+      kubernetes.core.k8s_info:
+        kind: Deployment
+        name: postgres
+        namespace: "{{ k8s_namespace }}"
+      register: postgres
+      until: (postgres.resources[0].status.readyReplicas | default(0)) == 1
+      retries: 40
+      delay: 5
 
     # force replaces the object instead of merging into it, so settings removed from
     # the template (e.g. old env variables) are also removed from the cluster
@@ -130,9 +172,14 @@
                     command: ["sh", "-c"]
                     args:
                       - |
+                        base=http://{{ app_name }}.{{ k8s_namespace }}.svc
                         for i in $(seq 1 30); do
-                          r=$(curl -sf http://{{ app_name }}.{{ k8s_namespace }}.svc/api/info)
-                          if echo "$r" | grep -q '"build":"{{ build_number }}"'; then echo "$r"; exit 0; fi
+                          r=$(curl -sf $base/api/info)
+                          if echo "$r" | grep -q '"build":"{{ build_number }}"'; then
+                            # The menu comes from PostgreSQL, so this also proves the database works
+                            curl -sf $base/api/menu | grep -q '"name"' || { echo "menu check failed" >&2; exit 1; }
+                            echo "$r"; exit 0
+                          fi
                           sleep 2
                         done
                         echo "$r"; exit 1
