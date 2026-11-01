@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 630" width="1520" height="630" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#334155"/>
+    </marker>
+    <style>
+      .col{fill:#F8FAFC;stroke:#CBD5E1;stroke-width:1.2}
+      .tag{font-size:11px;font-weight:600;letter-spacing:1.6px;fill:#64748B;text-anchor:middle}
+      .hd{font-size:16px;font-weight:700;fill:#0F172A;text-anchor:middle}
+      .card{fill:#FFFFFF;stroke:#CBD5E1;stroke-width:1.2}
+      .ct{font-size:15px;font-weight:600;fill:#0F172A}
+      .sub{font-size:12px;fill:#64748B}
+      .stg{fill:#FFF7ED;stroke:#FDBA74;stroke-width:1.2}
+      .sn{font-size:12px;font-weight:700;fill:#fff;text-anchor:middle}
+      .stt{font-size:14px;font-weight:600;fill:#1E293B}
+      .w{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+      .chip{fill:#fff;stroke:#94A3B8;stroke-width:1}
+      .cht{font-size:12px;font-weight:600;fill:#334155;text-anchor:middle}
+      .ar{stroke:#334155;stroke-width:2;fill:none}
+      .lg{font-size:13px;fill:#334155}
+    </style>
+  </defs>
+  <rect width="1520" height="630" fill="#fff"/>
+  <rect x="10" y="10" width="1500" height="610" rx="12" fill="#fff" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="760" y="48" text-anchor="middle" font-size="24" font-weight="700" fill="#0F172A">CI/CD Pipeline — GitHub → Jenkins → Microsoft Azure</text>
+
+  <!-- Columns -->
+  <rect class="col" x="30" y="72" width="210" height="468" rx="12"/>
+  <rect class="col" x="300" y="72" width="470" height="468" rx="12"/>
+  <rect class="col" x="860" y="72" width="370" height="468" rx="12"/>
+  <rect class="col" x="1290" y="72" width="200" height="468" rx="12"/>
+  <text class="tag" x="135" y="96">LAYER 1</text><text class="hd" x="135" y="118">Source control</text>
+  <text class="tag" x="535" y="96">LAYER 2</text><text class="hd" x="535" y="118">CI/CD – Jenkins</text>
+  <text class="tag" x="1045" y="96">LAYER 3</text><text class="hd" x="1045" y="118">Microsoft Azure</text>
+  <text class="tag" x="1390" y="96">LAYER 4</text><text class="hd" x="1390" y="118">Users</text>
+  <g stroke="#E2E8F0" stroke-width="1">
+    <line x1="50" y1="134" x2="220" y2="134"/><line x1="320" y1="134" x2="750" y2="134"/>
+    <line x1="880" y1="134" x2="1210" y2="134"/><line x1="1310" y1="134" x2="1470" y2="134"/>
+  </g>
+
+  <!-- Layer 1 -->
+  <rect class="card" x="48" y="150" width="174" height="140" rx="12"/>
+  <rect x="112" y="168" width="46" height="46" rx="11" fill="#2563EB"/>
+  <circle cx="135" cy="184" r="6" fill="#fff"/><path d="M124 205 Q124 193 135 193 Q146 193 146 205 Z" fill="#fff"/>
+  <text class="ct" x="135" y="244" text-anchor="middle">Developer</text>
+  <text class="sub" x="135" y="266" text-anchor="middle">Writes &amp; commits code</text>
+
+  <rect class="card" x="48" y="370" width="174" height="152" rx="12"/>
+  <rect x="112" y="390" width="46" height="46" rx="11" fill="#1F2937"/>
+  <g class="w"><circle cx="129" cy="402" r="3.5"/><circle cx="129" cy="424" r="3.5"/><circle cx="142" cy="408" r="3.5"/><path d="M129 405.5V420.5"/><path d="M142 411.5Q142 419 132.5 422"/></g>
+  <text class="ct" x="135" y="466" text-anchor="middle">GitHub repository</text>
+  <text class="sub" x="135" y="488" text-anchor="middle">Source code &amp; commit</text>
+  <text class="sub" x="135" y="504" text-anchor="middle">history</text>
+
+  <!-- Layer 2: Jenkins pipeline -->
+  <rect x="318" y="146" width="434" height="376" rx="12" fill="#F5F3FF" stroke="#A78BFA" stroke-width="1.4"/>
+  <circle cx="478" cy="168" r="5" fill="#7C3AED"/>
+  <text x="490" y="173" font-size="15" font-weight="700" fill="#5B21B6">Jenkins pipeline</text>
+  <g>
+    <rect class="stg" x="338" y="190" width="190" height="56" rx="10"/><circle cx="360" cy="218" r="11" fill="#F97316"/><text class="sn" x="360" y="222">1</text><text class="stt" x="380" y="223">Jenkins</text>
+    <rect class="stg" x="338" y="272" width="190" height="56" rx="10"/><circle cx="360" cy="300" r="11" fill="#F97316"/><text class="sn" x="360" y="304">2</text><text class="stt" x="380" y="305">Maven build</text>
+    <rect class="stg" x="338" y="354" width="190" height="56" rx="10"/><circle cx="360" cy="382" r="11" fill="#F97316"/><text class="sn" x="360" y="386">3</text><text class="stt" x="380" y="387">Unit tests - JUnit</text>
+    <rect class="stg" x="338" y="436" width="190" height="56" rx="10"/><circle cx="360" cy="464" r="11" fill="#F97316"/><text class="sn" x="360" y="468">4</text><text class="stt" x="380" y="469">Docker build</text>
+    <rect class="stg" x="548" y="190" width="190" height="56" rx="10"/><circle cx="570" cy="218" r="11" fill="#F97316"/><text class="sn" x="570" y="222">5</text><text class="stt" x="590" y="223">Push image</text>
+    <rect class="stg" x="548" y="354" width="190" height="56" rx="10"/><circle cx="570" cy="382" r="11" fill="#F97316"/><text class="sn" x="570" y="386">6</text><text class="stt" x="590" y="387">Ansible deploy</text>
+    <rect class="stg" x="548" y="436" width="190" height="56" rx="10"/><circle cx="570" cy="464" r="11" fill="#F97316"/><text class="sn" x="570" y="468">7</text><text class="stt" x="590" y="469">Verify rollout</text>
+  </g>
+  <g class="ar" stroke-width="1.6" marker-end="url(#ah)">
+    <line x1="433" y1="246" x2="433" y2="270"/>
+    <line x1="433" y1="328" x2="433" y2="352"/>
+    <line x1="433" y1="410" x2="433" y2="434"/>
+    <path d="M528 464 H538 V218 H546"/>
+    <line x1="643" y1="246" x2="643" y2="352"/>
+    <line x1="643" y1="410" x2="643" y2="434"/>
+  </g>
+
+  <!-- Layer 3 -->
+  <rect class="card" x="878" y="150" width="334" height="118" rx="12"/>
+  <rect x="896" y="172" width="46" height="46" rx="11" fill="#0EA5E9"/>
+  <g class="w"><rect x="906" y="180" width="26" height="7" rx="2"/><rect x="906" y="191.5" width="26" height="7" rx="2"/><rect x="906" y="203" width="26" height="7" rx="2"/></g>
+  <text class="ct" x="956" y="192">Azure Container</text>
+  <text class="ct" x="956" y="212">Registry</text>
+  <text class="sub" x="956" y="240">Stores Docker images</text>
+
+  <rect x="870" y="318" width="350" height="204" rx="14" fill="#F5F3FF" stroke="#A78BFA" stroke-width="1.4"/>
+  <rect x="886" y="326" width="30" height="30" rx="8" fill="#7C3AED"/>
+  <g class="w" stroke-width="1.7"><circle cx="901" cy="341" r="8"/><path d="M901 333V349M893 341H909M895.3 335.3L906.7 346.7M906.7 335.3L895.3 346.7"/></g>
+  <text x="926" y="346" font-size="15" font-weight="700" fill="#4C1D95">Azure Kubernetes Service</text>
+  <rect class="card" x="888" y="364" width="314" height="52" rx="10" stroke="#C4B5FD"/>
+  <text class="stt" x="1045" y="395" text-anchor="middle">Application deployment</text>
+  <rect class="card" x="888" y="442" width="150" height="62" rx="10" stroke="#93C5FD"/>
+  <g fill="none" stroke="#2563EB" stroke-width="1.6"><ellipse cx="909" cy="463" rx="7" ry="2.6"/><path d="M902 463V481M916 463V481"/><path d="M902 481 A7 2.6 0 0 0 916 481"/><path d="M902 472 A7 2.6 0 0 0 916 472"/></g>
+  <text class="stt" x="984" y="468" text-anchor="middle">PostgreSQL</text>
+  <text class="sub" x="984" y="487" text-anchor="middle">persistent volume</text>
+  <rect class="card" x="1052" y="442" width="150" height="62" rx="10" stroke="#C4B5FD"/>
+  <text class="stt" x="1127" y="468" text-anchor="middle">LoadBalancer</text>
+  <text class="sub" x="1127" y="487" text-anchor="middle">public IP</text>
+  <line x1="963" y1="416" x2="963" y2="440" class="ar" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="1127" y1="416" x2="1127" y2="440" class="ar" stroke-width="1.6" marker-end="url(#ah)"/>
+
+  <!-- Layer 4 -->
+  <g transform="translate(80,0)">
+  <rect class="card" x="1228" y="150" width="164" height="150" rx="12"/>
+  <rect x="1287" y="170" width="46" height="46" rx="11" fill="#059669"/>
+  <circle cx="1303" cy="187" r="5" fill="#fff"/><path d="M1294 205 Q1294 196 1303 196 Q1312 196 1312 205 Z" fill="#fff"/>
+  <circle cx="1318" cy="184" r="4" fill="#fff" opacity="0.85"/><path d="M1313 194 Q1318 191 1324 194 V203 H1315" fill="#fff" opacity="0.85"/>
+  <text class="ct" x="1310" y="244" text-anchor="middle">End users</text>
+  <text class="sub" x="1310" y="266" text-anchor="middle">Access the deployed app</text>
+
+  <rect class="card" x="1228" y="330" width="164" height="192" rx="12"/>
+  <rect x="1287" y="354" width="46" height="46" rx="11" fill="#059669"/>
+  <g class="w"><rect x="1297" y="367" width="26" height="20" rx="3"/><path d="M1297 373H1323"/></g>
+  <text class="ct" x="1310" y="430" text-anchor="middle">Browser</text>
+  <text class="sub" x="1310" y="452" text-anchor="middle">Reaches the app via</text>
+  <text class="sub" x="1310" y="468" text-anchor="middle">the public IP</text>
+  </g>
+
+  <!-- Cross-layer connectors -->
+  <g class="ar" marker-end="url(#ah)">
+    <line x1="135" y1="290" x2="135" y2="367"/>
+    <path d="M222 446 H270 V218 H335"/>
+    <line x1="738" y1="218" x2="875" y2="218"/>
+    <line x1="1045" y1="268" x2="1045" y2="315"/>
+    <path d="M738 382 H860 V390 H885"/>
+    <line x1="1202" y1="473" x2="1305" y2="473"/>
+    <line x1="1390" y1="300" x2="1390" y2="327"/>
+  </g>
+
+  <!-- Arrow chips -->
+  <rect class="chip" x="98" y="318" width="74" height="22" rx="11"/><text class="cht" x="135" y="333">git push</text>
+  <rect class="chip" x="222" y="312" width="96" height="40" rx="11"/><text class="cht" x="270" y="329">Poll SCM</text><text class="cht" x="270" y="344">every minute</text>
+  <rect class="chip" x="764" y="207" width="88" height="22" rx="11"/><text class="cht" x="808" y="222">docker push</text>
+  <rect class="chip" x="1052" y="280" width="80" height="22" rx="11"/><text class="cht" x="1092" y="295">image pull</text>
+  <rect class="chip" x="751" y="371" width="114" height="22" rx="11"/><text class="cht" x="808" y="386">kubernetes.core</text>
+
+  <!-- Legend band -->
+  <rect x="30" y="556" width="1460" height="48" rx="10" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="54" y="585" font-size="11" font-weight="700" letter-spacing="1.6" fill="#64748B">LEGEND</text>
+  <circle cx="160" cy="580" r="9" fill="#F97316"/><text x="160" y="584" class="sn" font-size="10">1</text>
+  <text x="176" y="585" class="lg">Pipeline stage (run order)</text>
+  <line x1="380" y1="580" x2="425" y2="580" class="ar" marker-end="url(#ah)"/>
+  <text x="436" y="585" class="lg">Data / deployment flow</text>
+  <rect x="620" y="569" width="58" height="22" rx="11" class="chip"/><text x="649" y="584" class="cht">label</text>
+  <text x="688" y="585" class="lg">Trigger / transfer method</text>
+  <rect x="890" y="570" width="20" height="20" rx="5" fill="#F5F3FF" stroke="#A78BFA" stroke-width="1.4"/>
+  <text x="920" y="585" class="lg">Execution environment (Jenkins pipeline, AKS)</text>
+  <rect x="1240" y="570" width="20" height="20" rx="5" fill="#fff" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="1270" y="585" class="lg">Component</text>
+</svg>
