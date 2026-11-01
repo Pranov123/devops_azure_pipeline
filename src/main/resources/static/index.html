@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spice Route – Menu &amp; Online Ordering</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="menu">
+  <header class="site-header" id="site-header"></header>
+
+  <main>
+    <section class="hero">
+      <h1>Flavours of India, served fresh</h1>
+      <p>Tandoor classics, Chettinad spice and slow-cooked dum biryani. Order to your table or pick up a takeaway.</p>
+      <div class="hero-actions">
+        <a class="btn btn-light" href="#menu">Order now</a>
+        <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="reserve.html">Book a table</a>
+      </div>
+    </section>
+
+    <div class="filters" id="menu">
+      <div class="chips" id="category-chips"></div>
+      <input class="search" id="search" type="search" placeholder="Search dishes…" aria-label="Search dishes">
+      <label class="toggle"><input type="checkbox" id="veg-only"> Veg only</label>
+    </div>
+
+    <div class="menu-layout">
+      <section id="menu-list"><p class="empty">Loading menu…</p></section>
+
+      <aside class="card cart" id="cart">
+        <h2>Your order</h2>
+        <ul class="cart-lines" id="cart-lines"></ul>
+        <p class="empty" id="cart-empty">Your cart is empty. Add something tasty!</p>
+        <table class="bill hidden" id="bill">
+          <tr><td>Subtotal</td><td id="bill-subtotal"></td></tr>
+          <tr><td>GST (5%)</td><td id="bill-tax"></td></tr>
+          <tr class="grand"><td>Total</td><td id="bill-total"></td></tr>
+        </table>
+
+        <form id="checkout" class="hidden" novalidate>
+          <div class="error-box hidden" id="checkout-error"></div>
+          <div class="field">
+            <label for="customer-name">Your name</label>
+            <input id="customer-name" maxlength="80" required>
+          </div>
+          <div class="field segmented">
+            <label><input type="radio" name="order-type" value="DINE_IN" checked><span>Dine-in</span></label>
+            <label><input type="radio" name="order-type" value="TAKEAWAY"><span>Takeaway</span></label>
+          </div>
+          <div class="field" id="table-field">
+            <label for="table-number">Table number (1–20)</label>
+            <input id="table-number" type="number" min="1" max="20">
+          </div>
+          <button class="btn btn-block" id="place-order" type="submit">Place order</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <div class="cart-bar" id="cart-bar">
+    <span id="cart-bar-text">0 items</span>
+    <a class="btn btn-light btn-sm" href="#cart">View order</a>
+  </div>
+
+  <div class="modal-backdrop hidden" id="order-modal">
+    <div class="card modal">
+      <p class="big">🎉</p>
+      <h2>Order placed!</h2>
+      <p>Your order number is <strong id="modal-order-id"></strong>.<br>Total: <strong id="modal-total"></strong></p>
+      <p><a class="btn" id="modal-track" href="#">Track my order</a></p>
+      <button class="btn btn-outline btn-sm" id="modal-close" type="button">Back to menu</button>
+    </div>
+  </div>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

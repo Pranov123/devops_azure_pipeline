@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spice Route – Book a table</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="reserve">
+  <header class="site-header" id="site-header"></header>
+
+  <main>
+    <h1 class="page-title">Book a table</h1>
+    <p class="page-sub">Reserve up to 60 days ahead. We will hold your table for 15 minutes.</p>
+
+    <div class="reserve-layout">
+      <section class="card">
+        <form id="reserve-form" novalidate>
+          <div class="error-box hidden" id="reserve-error"></div>
+          <div class="row">
+            <div class="field">
+              <label for="r-name">Name</label>
+              <input id="r-name" maxlength="80" required>
+            </div>
+            <div class="field">
+              <label for="r-phone">Mobile number</label>
+              <input id="r-phone" type="tel" inputmode="numeric" maxlength="10" placeholder="9876543210" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="r-date">Date</label>
+              <input id="r-date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="r-time">Time</label>
+              <select id="r-time" required></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="r-party">Guests</label>
+            <select id="r-party"></select>
+          </div>
+          <div class="field">
+            <label for="r-notes">Special requests (optional)</label>
+            <textarea id="r-notes" rows="3" maxlength="200" placeholder="Birthday, high chair, window seat…"></textarea>
+          </div>
+          <button class="btn btn-block" id="reserve-btn" type="submit">Confirm reservation</button>
+        </form>
+
+        <div class="hidden" id="reserve-done" style="text-align:center">
+          <p style="font-size:3rem;margin:0">🍽️</p>
+          <h2>Table booked!</h2>
+          <p id="done-text"></p>
+          <button class="btn btn-outline" id="book-another" type="button">Make another booking</button>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2 style="margin-top:0">Good to know</h2>
+        <ul class="info-list">
+          <li>🕚 Open daily, 11:00 – 23:00</li>
+          <li>👥 Parties of up to 12 guests online</li>
+          <li>📅 Slots every 30 minutes, last booking 22:30</li>
+          <li>📍 12 Temple Street, Chennai</li>
+          <li>☎️ For larger groups call +91 44 4000 1234</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/reserve.js"></script>
+</body>
+</html>

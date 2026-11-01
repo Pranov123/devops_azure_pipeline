@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spice Route – Kitchen dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="kitchen">
+  <header class="site-header" id="site-header"></header>
+
+  <main>
+    <h1 class="page-title">Kitchen dashboard</h1>
+    <p class="page-sub">Live orders, today's reservations and menu availability. Refreshes every 5 seconds.</p>
+
+    <div class="tabs">
+      <button class="chip active" data-tab="orders" type="button">Orders</button>
+      <button class="chip" data-tab="reservations" type="button">Today's reservations</button>
+      <button class="chip" data-tab="menu" type="button">Menu availability</button>
+    </div>
+
+    <div class="error-box hidden" id="kitchen-error"></div>
+
+    <section id="tab-orders">
+      <div class="board">
+        <div class="column"><h3>New <span class="count" id="count-PLACED">0</span></h3><div id="col-PLACED"></div></div>
+        <div class="column"><h3>Preparing <span class="count" id="count-PREPARING">0</span></h3><div id="col-PREPARING"></div></div>
+        <div class="column"><h3>Ready <span class="count" id="count-READY">0</span></h3><div id="col-READY"></div></div>
+      </div>
+    </section>
+
+    <section id="tab-reservations" class="hidden">
+      <table class="table">
+        <thead><tr><th>Time</th><th>Name</th><th>Guests</th><th>Phone</th><th>Notes</th><th>Status</th><th></th></tr></thead>
+        <tbody id="reservation-rows"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-menu" class="hidden">
+      <table class="table">
+        <thead><tr><th>Dish</th><th>Category</th><th>Price</th><th>Available</th></tr></thead>
+        <tbody id="menu-rows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/kitchen.js"></script>
+</body>
+</html>
