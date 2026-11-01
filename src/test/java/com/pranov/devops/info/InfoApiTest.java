@@ -1,0 +1,36 @@
+package com.pranov.devops.info;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+@SpringBootTest(properties = {"app.version=9.9.9", "app.build=123"})
+@AutoConfigureMockMvc
+class InfoApiTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void infoEndpointReturnsDeploymentDetails() throws Exception {
+        mockMvc.perform(get("/api/info"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.application").value("Spice Route"))
+                .andExpect(jsonPath("$.version").value("9.9.9"))
+                .andExpect(jsonPath("$.build").value("123"))
+                .andExpect(jsonPath("$.hostname").isNotEmpty());
+    }
+
+    @Test
+    void healthEndpointIsUpWithDatabase() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("UP"));
+    }
+}

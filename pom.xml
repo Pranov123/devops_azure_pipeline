@@ -13,9 +13,9 @@
 
     <groupId>com.pranov</groupId>
     <artifactId>devops-azure-pipeline</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
     <name>devops-azure-pipeline</name>
-    <description>Java web application deployed through a Jenkins CI/CD pipeline</description>
+    <description>Spice Route restaurant web application deployed through a Jenkins CI/CD pipeline</description>
 
     <properties>
         <java.version>21</java.version>
@@ -29,6 +29,34 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- Versioned schema and seed data -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+        <!-- PostgreSQL in Kubernetes, in-memory H2 for local runs and tests -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package com.pranov.devops.service;
+package com.pranov.devops.info;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- * Builds the information shown on the home page and returned by /api/info.
- * Version and build values are injected by the pipeline as environment variables,
- * so a redeployment is visible directly in the browser.
+ * Deployment details shown in the site footer and returned by /api/info.
+ * The version comes from pom.xml and the build number is injected by the pipeline,
+ * so every redeployment is visible in the browser.
  */
 @Service
 public class InfoService {
@@ -33,22 +33,6 @@ public class InfoService {
         this.message = message;
     }
 
-    public String getAppName() {
-        return appName;
-    }
-
-    public String getAppVersion() {
-        return appVersion;
-    }
-
-    public String getBuildNumber() {
-        return buildNumber;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
     /** Pod name when running in Kubernetes, machine name otherwise. */
     public String getHostname() {
         try {
@@ -67,10 +51,5 @@ public class InfoService {
         info.put("hostname", getHostname());
         info.put("startedAt", startedAt.toString());
         return info;
-    }
-
-    /** Simple business logic so the unit tests cover more than wiring. */
-    public static int add(int a, int b) {
-        return a + b;
     }
 }
