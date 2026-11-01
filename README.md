@@ -22,30 +22,7 @@ so each redeployment is visible in the browser.
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Dev[Developer] -->|git push| GH[GitHub repository]
-    GH -->|Poll SCM every minute| J[Jenkins]
-
-    subgraph Jenkins pipeline
-        J --> B[Maven build]
-        B --> T[Unit tests - JUnit]
-        T --> D[Docker build]
-        D --> P[Push image]
-        P --> A[Ansible deploy]
-        A --> V[Verify rollout]
-    end
-
-    P -->|docker push| ACR[(Azure Container Registry)]
-    A -->|kubernetes.core| AKS
-
-    subgraph AKS[Azure Kubernetes Service]
-        App[Spice Route app - 2 pods] --> DB[(PostgreSQL + persistent volume)]
-    end
-
-    ACR -->|image pull| App
-    App -->|LoadBalancer public IP| User[Browser]
-```
+![CI/CD pipeline architecture](docs/cicd-pipeline-v4.png)
 
 ## Tools
 
