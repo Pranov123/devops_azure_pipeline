@@ -22,7 +22,8 @@ so each redeployment is visible in the browser.
 
 ## Architecture
 
-![CI/CD pipeline architecture](cicd-pipeline-v4.svg)
+![CI/CD pipeline architecture](cicd-pipeline-v5.svg)
+
 ## Tools
 
 | Concern | Tool | Notes |
