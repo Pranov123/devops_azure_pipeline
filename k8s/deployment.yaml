@@ -37,6 +37,9 @@ spec:
           env:
             - name: APP_BUILD
               value: "{{ build_number }}"
+            - name: APP_MESSAGE
+              valueFrom:
+                configMapKeyRef: { name: welcome-config, key: APP_MESSAGE }
             - name: DB_URL
               value: "jdbc:postgresql://postgres:5432/restaurant"
             - name: DB_USER

@@ -1,0 +1,12 @@
+# Application settings that can change without rebuilding the image.
+# APP_MESSAGE overrides app.message in application.properties and is shown as the
+# welcome badge on the home page and in /api/info.
+# Pods read it at start-up: after changing it, redeploy (pipeline) or run
+#   kubectl -n devops-cia2 rollout restart deployment/devops-app
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: welcome-config
+  namespace: "{{ k8s_namespace }}"
+data:
+  APP_MESSAGE: "Welcome to Kubernetes"

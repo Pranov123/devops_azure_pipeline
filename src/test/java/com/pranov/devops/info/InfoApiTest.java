@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(properties = {"app.version=9.9.9", "app.build=123"})
+@SpringBootTest(properties = {"app.version=9.9.9", "app.build=123", "app.message=Welcome Dhivya"})
 @AutoConfigureMockMvc
 class InfoApiTest {
 
@@ -24,6 +24,7 @@ class InfoApiTest {
                 .andExpect(jsonPath("$.application").value("Spice Route"))
                 .andExpect(jsonPath("$.version").value("9.9.9"))
                 .andExpect(jsonPath("$.build").value("123"))
+                .andExpect(jsonPath("$.message").value("Welcome Dhivya"))
                 .andExpect(jsonPath("$.hostname").isNotEmpty());
     }
 

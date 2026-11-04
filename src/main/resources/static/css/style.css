@@ -77,6 +77,15 @@ main { max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; }
   margin-bottom: 24px;
 }
 .hero h1 { margin: 0 0 8px; font-size: 2.2rem; }
+.hero .welcome {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+}
 .hero p { margin: 0; max-width: 620px; color: #fbe9dd; }
 .hero .hero-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
 

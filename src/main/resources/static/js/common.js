@@ -78,6 +78,12 @@ async function renderFooter() {
     document.getElementById('build-info').innerHTML =
       `Version <code>${escapeHtml(info.version)}</code> · Jenkins build <code>${escapeHtml(info.build)}</code>` +
       ` · Pod <code>${escapeHtml(info.hostname)}</code>`;
+    // Welcome badge on the home page; the text comes from the Kubernetes ConfigMap (APP_MESSAGE)
+    const welcome = document.getElementById('welcome-message');
+    if (welcome && info.message) {
+      welcome.textContent = info.message;
+      welcome.classList.remove('hidden');
+    }
   } catch (e) {
     document.getElementById('build-info').textContent = 'Deployment info unavailable';
   }

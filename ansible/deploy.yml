@@ -95,6 +95,11 @@
       retries: 40
       delay: 5
 
+    - name: Apply application ConfigMap
+      kubernetes.core.k8s:
+        state: present
+        template: "{{ manifest_dir }}/configmap.yaml"
+
     # force replaces the object instead of merging into it, so settings removed from
     # the template (e.g. old env variables) are also removed from the cluster
     - name: Apply deployment
