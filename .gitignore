@@ -8,3 +8,6 @@ target/
 
 # kubeconfig written by the Jenkins deploy stage
 .kubeconfig
+
+# Gitleaks report written by the secret scan stage
+gitleaks-report.json

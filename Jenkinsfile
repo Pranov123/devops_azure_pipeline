@@ -1,5 +1,5 @@
-// CI/CD pipeline: Git -> Maven build & test -> Docker image -> Azure Container Registry
-//                 -> Ansible deploy to Kubernetes -> verify
+// CI/CD pipeline: Git -> Gitleaks secret scan -> Maven build & test -> Docker image
+//                 -> Azure Container Registry -> Ansible deploy to Kubernetes -> verify
 // Runs on a Windows Jenkins controller; Ansible runs inside WSL (Ubuntu).
 pipeline {
     agent any
@@ -29,6 +29,7 @@ pipeline {
         SERVICE_TYPE = "${params.DEPLOY_TARGET == 'minikube' ? 'NodePort' : 'LoadBalancer'}"
         K8S_NS       = 'devops-cia2'
         DEPLOYMENT   = 'devops-app'
+        GITLEAKS_IMAGE = 'ghcr.io/gitleaks/gitleaks:v8.30.1'
     }
 
     stages {
@@ -41,6 +42,20 @@ pipeline {
                     env.IMAGE     = "${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
                 }
                 echo "Building commit ${env.GIT_SHORT} as image ${env.IMAGE}"
+            }
+        }
+
+        // Scans every commit in the repository history for passwords, keys and tokens.
+        // Gitleaks exits with an error when it finds one, which stops the pipeline before
+        // anything is built, pushed or deployed. Findings are redacted in the log.
+        stage('Secret Scan (Gitleaks)') {
+            steps {
+                bat 'docker run --rm -v "%WORKSPACE%:/repo" %GITLEAKS_IMAGE% git /repo --redact --no-banner --report-format json --report-path /repo/gitleaks-report.json'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'gitleaks-report.json', allowEmptyArchive: true
+                }
             }
         }
 
