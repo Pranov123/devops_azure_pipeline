@@ -9,4 +9,4 @@ metadata:
   name: welcome-config
   namespace: "{{ k8s_namespace }}"
 data:
-  APP_MESSAGE: "Welcome to Kubernetes"
+  APP_MESSAGE: "Welcome Dhivya"
