@@ -30,6 +30,7 @@ so each redeployment is visible in the browser.
 |---|---|---|
 | Source control | Git + GitHub | Public repository, `main` branch triggers the pipeline |
 | CI/CD | Jenkins | Declarative `Jenkinsfile`, Poll SCM trigger |
+| Secret scanning | Gitleaks 8.30.1 | Runs as a Docker container in the pipeline |
 | Application | Spring Boot 3.5 (Java 21), Spring Data JPA, Bean Validation | REST API + static HTML/CSS/JS frontend |
 | Database | PostgreSQL 16 (Kubernetes), H2 (local and tests) | Schema and seed menu managed by Flyway migrations |
 | Build & test | Maven, JUnit 5, MockMvc | 35 unit and API tests run in every build |
@@ -72,6 +73,7 @@ so each redeployment is visible in the browser.
 | Stage | What it does |
 |---|---|
 | Checkout | Fetches the commit and tags the image as `<build number>-<short commit>` |
+| Secret Scan (Gitleaks) | Scans the full git history for passwords, keys and tokens with Gitleaks; any finding fails the build before anything is built or deployed. The JSON report is archived with the build |
 | Maven Build | `mvn clean package` compiles and packages `target/app.jar` |
 | Unit Tests | `mvn test`; results are published to Jenkins with the JUnit plugin |
 | Docker Build | Builds the image with the version tag and `latest` |
@@ -141,6 +143,8 @@ ansible-playbook -i inventory.ini deploy.yml -e image_tag=<tag> -e build_number=
 ```
 
 ## Security notes
+- Every build runs a Gitleaks scan of the whole repository history, so a committed secret stops the
+  pipeline before it can reach the registry or the cluster.
 - Registry password is stored only as a Jenkins credential, masked in logs and passed to Ansible
   through environment variables; the pull secret task uses `no_log`.
 - The kubeconfig written for Ansible is deleted at the end of every build and is git-ignored.
